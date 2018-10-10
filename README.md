@@ -1,14 +1,15 @@
 # Flexbute CSS Grid
+
 A simple mobile first and flexbox based Grid system controlled by HTML attributes. (version: 1.0)
 
 ## Installation
 
-#### Without building
+### Without building
 
 1. Download or fork the repository
 2. Embed the flexbute.css file inside the dist folder into your HTML
 
-#### With building
+### With building
 
 1. Download or fork the repository
 2. Install [SASS](https://sass-lang.com)
@@ -17,11 +18,12 @@ A simple mobile first and flexbox based Grid system controlled by HTML attribute
 
 Building the flexbute.scss file with SASS
 
-```
+```bash
 sass --watch src/flexbute.scss:dist/flexbute.css
 ```
 
 Embedding the flexbute.css file
+
 ```html
 <link rel="stylesheet" href="path/to/flexbute.css">
 ```
@@ -35,9 +37,9 @@ The grid is controlled by HTML attributes. There are two different attributes (d
 | Grid   | data-grid | used on the wrapper element that defines a grid |
 | Column | data-col  | used on the column element to control it        |
 
-All attribute values shown beneath are separated by spaces and can be combined freely. 
+All attribute values shown beneath are separated by spaces and can be combined freely.
 
-#### Defining a basic grid
+### Defining a basic grid
 
 ```html
 <div data-grid>
@@ -47,7 +49,7 @@ All attribute values shown beneath are separated by spaces and can be combined f
 </div>
 ```
 
-#### Grid control over the grid attribute
+### Grid control over the grid attribute
 
 Every column now uses 4 spaced of the grid (12 by default)
 
@@ -59,12 +61,12 @@ Every column now uses 4 spaced of the grid (12 by default)
 </div>
 ```
 
-#### Grid control over the column attribute
+### Grid control over the column attribute
 
 Every column now again uses 4 spaced of the grid (12 by default).
 
 Column width definitions inside the data-grid attribute will be overridden by the
-data-col attribute by default, it is possible to use both at the same time. 
+data-col attribute by default, it is possible to use both at the same time.
 
 ```html
 <div data-grid>
@@ -74,7 +76,7 @@ data-col attribute by default, it is possible to use both at the same time.
 </div>
 ```
 
-#### Grid breakpoints over the grid attribute
+### Grid breakpoints over the grid attribute
 
 ```html
 <div data-grid="12 sm-6 md-4 lg-2">
@@ -84,7 +86,7 @@ data-col attribute by default, it is possible to use both at the same time.
 </div>
 ```
 
-#### Grid breakpoints over the column attribute
+### Grid breakpoints over the column attribute
 
 ```html
 <div data-grid>
@@ -94,7 +96,7 @@ data-col attribute by default, it is possible to use both at the same time.
 </div>
 ```
 
-#### Column offset
+### Column offset
 
 ```html
 <div data-grid>
@@ -103,7 +105,7 @@ data-col attribute by default, it is possible to use both at the same time.
 </div>
 ```
 
-#### Column offset with breakpoints
+### Column offset with breakpoints
 
 ```html
 <div data-grid>
@@ -112,7 +114,7 @@ data-col attribute by default, it is possible to use both at the same time.
 </div>
 ```
 
-#### Nested grids
+### Nested grids
 
 ```html
 <div data-grid>
@@ -127,7 +129,7 @@ data-col attribute by default, it is possible to use both at the same time.
 </div>
 ```
 
-#### Column alignment
+### Column alignment
 
 ```html
 <div data-grid="[alignment-value]">
@@ -157,8 +159,7 @@ Alignment values (vertical):
 | vStretch        | stretch                         |
 | vBaseline       | baseline                        |
 
-
-#### Default grid breakpoints
+### Default grid breakpoints
 
 | Breakpoint  | Screen width |
 |-------------|--------------|
@@ -168,7 +169,7 @@ Alignment values (vertical):
 | lg          | 1024px       |
 | xl          | 1280px       |
 
-#### Special attribute values
+### Special attribute values
 
 No gutter
 
@@ -183,8 +184,7 @@ Used to turn off the gutter.
 
 No spill
 
-No negative margin on the grid level, used to turn off the left and right 
-compensation of the gutter.
+No negative margin on the grid level, used to turn off the left and right compensation of the gutter.
 
 ```html
 <div data-grid="no-spill">
@@ -193,7 +193,7 @@ compensation of the gutter.
 </div>
 ```
 
-#### SASS Variables
+### SASS Variables
 
 Further documentation can be found inside the flexbute.scss file.
 
@@ -207,10 +207,9 @@ Further documentation can be found inside the flexbute.scss file.
 | $GRID_ATTRIBUTE     | The attribute that defines a grid                                     |
 | $COLUMN_ATTRIBUTE   | The attribute that defines a column                                   |
 
-
 ## Recommendations or questions
 
-If you have any ideas that would make the grid even greater, feel free to contact me: 
-[mailto](Mailto:wag96niklas@gmail.com) 
+If you have any ideas that would make the grid even greater, feel free to contact me:
+[mailto](Mailto:wag96niklas@gmail.com)
 
 Thank you for downloading, made with ❤️ and 🍺 in Munich
