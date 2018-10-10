@@ -1,0 +1,248 @@
+// Flexbute css grid (v:1.0) 
+// By Niklas Wagner
+// GitHub: https://github.com/primumFlaw/Flexbute
+// ============================================================
+// Table of contents:
+// 1. Variables
+// 2. Mixins
+// 3. Styles
+// ============================================================
+
+// 1. Variables
+// ============================================================
+
+// grid type
+// !!! if changed breakpoints must be sorted in the right order
+// "min-width" => for a mobile first grid (min-width media queries)
+// "max-width" => for a desktop first grid (max-width media queries)
+$GRID_TYPE: "min-width";
+
+// column gutter
+// [px, em, rem, vw, vh, ...] => column gutter size
+// "none" => for no gutter
+$COLUMN_GUTTER: 10px;
+
+// column count
+// [integer] => number of columns possible in a grid
+$COLUMN_COUNT: 12;
+
+// column grow
+// "true" => columns without width specification will auto grow (flex-grow:1)
+$COLUMN_GROW: "true";
+
+// column breakpoints
+// on grid type == "min-width" => small to big
+// on grid type == "max-width" => big to small
+$COLUMN_BREAKPOINTS: (xs: 448px, sm: 576px, md: 768px, lg: 1024px, xl: 1280px);
+
+// grid attribute
+$GRID_ATTRIBUTE: "data-grid";
+
+// column attribute
+$COLUMN_ATTRIBUTE: "data-col";
+
+// 2. Mixins
+// ============================================================
+
+// base generator
+@mixin baseGenerator($type) {
+    @for $column from 0 to $COLUMN_COUNT + 1 {
+        @if $type == "grid" {
+            [#{$GRID_ATTRIBUTE}~="#{$column}"] > [#{$COLUMN_ATTRIBUTE}] {
+                @include widthGenerator($column);
+            }
+        }
+
+        @if $type == "column" {
+            [#{$GRID_ATTRIBUTE}] > [#{$COLUMN_ATTRIBUTE}~="#{$column}"] {
+                @include widthGenerator($column);
+            }
+        }
+    }
+}
+
+// breakpoint generator
+@mixin breakpointGenerator($type) {
+    @each $breakpoint, $size in $COLUMN_BREAKPOINTS {
+        @media (#{$GRID_TYPE}: #{$size}) {
+            @for $column from 0 to $COLUMN_COUNT + 1 {
+                @if $type == "grid" {
+                    [#{$GRID_ATTRIBUTE}~="#{$breakpoint}-#{$column}"] > [#{$COLUMN_ATTRIBUTE}] {
+                        @include widthGenerator($column);
+                    }
+                }
+
+                @if $type == "column" {
+                    [#{$GRID_ATTRIBUTE}] > [#{$COLUMN_ATTRIBUTE}~="#{$breakpoint}-#{$column}"] {
+                        @include widthGenerator($column);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// offset generator
+@mixin offsetGenerator {
+    @for $column from 0 to $COLUMN_COUNT + 1 {
+        [#{$GRID_ATTRIBUTE}] > [#{$COLUMN_ATTRIBUTE}~="left-#{$column}"] {
+            margin-left: 100% / $COLUMN_COUNT * $column;
+        }
+
+        [#{$GRID_ATTRIBUTE}] > [#{$COLUMN_ATTRIBUTE}~="right-#{$column}"] {
+            margin-right: 100% / $COLUMN_COUNT * $column;
+        }
+    }
+}
+
+// offset breakpoint generator
+@mixin offsetBreakpointGenerator {
+    @each $breakpoint, $size in $COLUMN_BREAKPOINTS {
+        @media (#{$GRID_TYPE}: #{$size}) {
+            @for $column from 0 to $COLUMN_COUNT + 1 {
+                [#{$GRID_ATTRIBUTE}] > [#{$COLUMN_ATTRIBUTE}~="left-#{$breakpoint}-#{$column}"] {
+                    margin-left: 100% / $COLUMN_COUNT * $column;
+                }
+
+                [#{$GRID_ATTRIBUTE}] > [#{$COLUMN_ATTRIBUTE}~="right-#{$breakpoint}-#{$column}"] {
+                    margin-right: 100% / $COLUMN_COUNT * $column;
+                }
+            }
+        }
+    }
+}
+
+// width generator
+@mixin widthGenerator($column) {
+    @if $column == 0 {
+        display: none;
+        max-width: 0;
+        min-width: 0;
+        padding: 0;
+    }
+    @else {
+        flex-basis: 100% / $COLUMN_COUNT * $column;
+        max-width: 100% / $COLUMN_COUNT * $column;
+        padding: $COLUMN_GUTTER / 2;
+    }
+}
+
+// 3. Styles
+// ============================================================
+
+// base generator include (grid)
+@include baseGenerator("grid");
+
+// breakpoint generator include (grid)
+@include breakpointGenerator("grid");
+
+// base generator include (column)
+@include baseGenerator("column");
+
+// breakpoint generator include (column)
+@include breakpointGenerator("column");
+
+// offset generator include
+@include offsetGenerator;
+
+// offset breakpoint generator include
+@include offsetBreakpointGenerator;
+
+// base grid styles
+[#{$GRID_ATTRIBUTE}] {
+    flex-wrap: wrap;
+    display: flex;
+
+    @if $COLUMN_GUTTER != "none" {
+        margin-right: -#{$COLUMN_GUTTER / 2};
+        margin-left: -#{$COLUMN_GUTTER / 2};
+    }
+}
+
+// base column styles
+[#{$COLUMN_ATTRIBUTE}] {
+    box-sizing: border-box;
+
+    @if $COLUMN_GUTTER != "none" {
+        padding: $COLUMN_GUTTER / 2;
+    }
+
+    @if $COLUMN_GROW == "true" {
+        flex-grow: 1;
+    }
+}
+
+// no spill
+[#{$GRID_ATTRIBUTE}~="no-spill"] {
+    @if $COLUMN_GUTTER != "none" {
+        margin: 0;
+    }
+}
+
+// no gutter
+[#{$GRID_ATTRIBUTE}~="no-gutter"] {
+    @if $COLUMN_GUTTER != "none" {
+        margin: 0;
+    }
+
+    [#{$COLUMN_ATTRIBUTE}] {
+        @if $COLUMN_GUTTER != "none" {
+            padding: 0;
+        }
+    }
+}
+
+// grid horizontal center
+[#{$GRID_ATTRIBUTE}~="hCenter"] {
+    justify-content: center;
+}
+
+// grid horizontal start
+[#{$GRID_ATTRIBUTE}~="hStart"] {
+    justify-content: flex-start;
+}
+
+// grid horizontal end
+[#{$GRID_ATTRIBUTE}~="hEnd"] {
+    justify-content: flex-end;
+}
+
+// grid horizontal space between
+[#{$GRID_ATTRIBUTE}~="hSpaceBetween"] {
+    justify-content: space-between;
+}
+
+// grid horizontal space around
+[#{$GRID_ATTRIBUTE}~="hSpaceAround"] {
+    justify-content: space-around;
+}
+
+// grid horizontal space evenly
+[#{$GRID_ATTRIBUTE}~="hSpaceEvenly"] {
+    justify-content: space-evenly;
+}
+
+// grid vertical center
+[#{$GRID_ATTRIBUTE}~="vCenter"] {
+    align-items: center;
+}
+
+// grid vertical start
+[#{$GRID_ATTRIBUTE}~="vStart"] {
+    align-items: flex-start;
+}
+
+// grid vertical end
+[#{$GRID_ATTRIBUTE}~="vEnd"] {
+    align-items: flex-end;
+}
+
+// grid vertical stretch
+[#{$GRID_ATTRIBUTE}~="vStretch"] {
+    align-items: stretch;
+}
+
+// grid vertical baseline
+[#{$GRID_ATTRIBUTE}~="vBaseline"] {
+    align-items: baseline;
+}
