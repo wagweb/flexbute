@@ -51,7 +51,7 @@ All attribute values shown beneath are separated by spaces and can be combined f
 
 ### Grid control over the grid attribute
 
-Every column now uses 4 spaced of the grid (12 by default)
+Every column uses 4 spaces of the grid (12 by default)
 
 ```html
 <div data-grid="4">
@@ -63,10 +63,10 @@ Every column now uses 4 spaced of the grid (12 by default)
 
 ### Grid control over the column attribute
 
-Every column now again uses 4 spaced of the grid (12 by default).
+Every column now again uses 4 spaces of the grid (12 by default).
 
 Column width definitions inside the data-grid attribute will be overridden by the
-data-col attribute by default, it is possible to use both at the same time.
+data-col attribute by default, this makes it possible to use both controll types at the same time.
 
 ```html
 <div data-grid>
