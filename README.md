@@ -1,36 +1,10 @@
 # Flexbute CSS Grid
 
-A simple mobile first and flexbox based Grid system controlled by HTML attributes. (version: 1.0)
-
-## Installation
-
-### Without building
-
-1. Download or fork the repository
-2. Embed the flexbute.css file inside the dist folder into your HTML
-
-### With building
-
-1. Download or fork the repository
-2. Install [SASS](https://sass-lang.com)
-3. Build the flexbute.scss file inside the dist folder
-4. Embed the flexbute.css file inside the dist folder into your HTML
-
-Building the flexbute.scss file with SASS
-
-```bash
-sass --watch src/flexbute.scss:dist/flexbute.css
-```
-
-Embedding the flexbute.css file
-
-```html
-<link rel="stylesheet" href="path/to/flexbute.css">
-```
+A simple mobile first and Flexbox based grid system controlled by HTML attributes. (version: 2.0)
 
 ## Documentation
 
-The grid is controlled by HTML attributes. There are two different attributes (default values).
+The Flexbute grid is controlled via HTML attributes, this means it wont collide with any classes inside your project and the HTML has an overall cleaner look.
 
 | Level  | Attribute | Description                                     |
 |--------|-----------|-------------------------------------------------|
@@ -39,7 +13,7 @@ The grid is controlled by HTML attributes. There are two different attributes (d
 
 All attribute values shown beneath are separated by spaces and can be combined freely.
 
-### Defining a basic grid
+### Defining the most basic grid
 
 ```html
 <div data-grid>
@@ -49,9 +23,7 @@ All attribute values shown beneath are separated by spaces and can be combined f
 </div>
 ```
 
-### Grid control over the grid attribute
-
-Every column uses 4 spaces of the grid (12 by default)
+### Controlling the column size with the grid level attribute
 
 ```html
 <div data-grid="4">
@@ -61,12 +33,7 @@ Every column uses 4 spaces of the grid (12 by default)
 </div>
 ```
 
-### Grid control over the column attribute
-
-Every column now again uses 4 spaces of the grid (12 by default).
-
-Column width definitions inside the data-grid attribute will be overridden by the
-data-col attribute by default, this makes it possible to use both controll types at the same time.
+### Controlling the column size with the column level attribute
 
 ```html
 <div data-grid>
@@ -76,23 +43,23 @@ data-col attribute by default, this makes it possible to use both controll types
 </div>
 ```
 
-### Grid breakpoints over the grid attribute
+### Defining breakpoints with the grid level attribute
 
 ```html
-<div data-grid="12 sm-6 md-4 lg-2">
+<div data-grid="12 xs-12 sm-8 md-6 lg-4 xl-2">
     <div data-col>...</div>
     <div data-col>...</div>
     <div data-col>...</div>
 </div>
 ```
 
-### Grid breakpoints over the column attribute
+### Defining breakpoints with the column level attribute
 
 ```html
 <div data-grid>
-    <div data-col="12 sm-6 md-4 lg-2">...</div>
-    <div data-col="12 sm-6 md-4 lg-2">...</div>
-    <div data-col="12 sm-6 md-4 lg-2">...</div>
+    <div data-col="12 xs-12 sm-8 md-6 lg-4 xl-2">...</div>
+    <div data-col="12 xs-12 sm-8 md-6 lg-4 xl-2">...</div>
+    <div data-col="12 xs-12 sm-8 md-6 lg-4 xl-2">...</div>
 </div>
 ```
 
@@ -114,21 +81,6 @@ data-col attribute by default, this makes it possible to use both controll types
 </div>
 ```
 
-### Nested grids
-
-```html
-<div data-grid>
-    <div data-col="6">
-            <div data-grid>
-                <div data-col="6">...</div>
-                <div data-col="6">...</div>
-            </div>
-        </div>
-    </div>
-    <div data-col="6">...</div>
-</div>
-```
-
 ### Column alignment
 
 ```html
@@ -140,24 +92,24 @@ data-col attribute by default, this makes it possible to use both controll types
 
 Alignment values (horizontal):
 
-| alignment value | css flex value css: justify-content |
-|-----------------|-------------------------------------|
-| hCenter         | center                              |
-| hStart          | flex-start                          |
-| hEnd            | flex-end                            |
-| hSpaceBetween   | space-between                       |
-| hSpaceAround    | space-around                        |
-| hSpaceEvenly    | space-evenly                        |
+| alignment value | corresponding css flex value (justify-content) |
+|-----------------|------------------------------------------------|
+| h-center        | center                                         |
+| h-start         | flex-start                                     |
+| h-end           | flex-end                                       |
+| h-space-between | space-between                                  |
+| h-space-around  | space-around                                   |
+| h-space-evenly  | space-evenly                                   |
 
 Alignment values (vertical):
 
-| alignment value | css flex value css: align-items |
-|-----------------|---------------------------------|
-| vCenter         | center                          |
-| vStart          | flex-start                      |
-| vEnd            | flex-end                        |
-| vStretch        | stretch                         |
-| vBaseline       | baseline                        |
+| alignment value | corresponding css flex value (align-items) |
+|-----------------|--------------------------------------------|
+| v-center        | center                                     |
+| v-start         | flex-start                                 |
+| v-end           | flex-end                                   |
+| v-stretch       | stretch                                    |
+| v-baseline      | baseline                                   |
 
 ### Default grid breakpoints
 
@@ -169,7 +121,7 @@ Alignment values (vertical):
 | lg          | 1024px       |
 | xl          | 1280px       |
 
-### Special attribute values
+### Special grid level attributes
 
 No gutter
 
@@ -184,7 +136,7 @@ Used to turn off the gutter.
 
 No spill
 
-No negative margin on the grid level, used to turn off the left and right compensation of the gutter.
+No negative margin on the grid level, used to turn off the left and right compensation for the gutter.
 
 ```html
 <div data-grid="no-spill">
@@ -195,17 +147,17 @@ No negative margin on the grid level, used to turn off the left and right compen
 
 ### SASS Variables
 
-Further documentation can be found inside the flexbute.scss file.
+Further documentation can be found inside the src/flexbute.scss file.
 
-| Variable name       | Description |
-|---------------------|-------------|
-| $GRID_TYPE          | Defines the if the grid is mobile or desktop first                    |
-| $COLUMN_GUTTER      | Defines the gutter size of the grid                                   |
-| $COLUMN_COUNT       | Defines the base column count of the grid (max width of one column)   |
-| $COLUMN_GROW        | Defines if a single column without fixed with should dynamically grow |
-| $COLUMN_BREAKPOINTS | A collection that defines the breakpoints for the columns             |
-| $GRID_ATTRIBUTE     | The attribute that defines a grid                                     |
-| $COLUMN_ATTRIBUTE   | The attribute that defines a column                                   |
+| Variable name           | Description                                                             |
+|-------------------------|-------------------------------------------------------------------------|
+| $FLB_GRID_TYPE          | Defines the if the grid is mobile or desktop first                      |
+| $FLB_COLUMN_GUTTER      | Defines the gutter size of the grid                                     |
+| $FLB_COLUMN_COUNT       | Defines the base column count of the grid (max combined width in a row) |
+| $FLB_COLUMN_GROW        | Defines if a single column without fixed with should dynamically grow   |
+| $FLB_COLUMN_BREAKPOINTS | A collection that defines the breakpoints for the columns               |
+| $FLB_GRID_ATTRIBUTE     | The attribute name used to define a grid                                |
+| $FLB_COLUMN_ATTRIBUTE   | The attribute name used to define a column                              |
 
 ## Recommendations or questions
 
