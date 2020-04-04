@@ -185,7 +185,7 @@ $FLB_COLUMN_ATTRIBUTE: "data-col";
         margin: 0;
     }
 
-    [#{$FLB_COLUMN_ATTRIBUTE}] {
+    & > [#{$FLB_COLUMN_ATTRIBUTE}] {
         @if $FLB_COLUMN_GUTTER != "none" {
             padding: 0;
         }
